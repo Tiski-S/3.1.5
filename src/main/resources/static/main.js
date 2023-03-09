@@ -181,8 +181,8 @@ if (document.getElementById('v-pills-admin')) {
         event.preventDefault();
 
         const newUserRoles = [];
-        if (document.getElementById('newRoleUser').selected) newUserRoles.push({id: 2, authority: 'ROLE_USER'});
-        if (document.getElementById('newRoleAdmin').selected) newUserRoles.push({id: 1, authority: 'ROLE_ADMIN'});
+        if (document.getElementById('newRoleUser').selected) newUserRoles.push({id: 2, name: 'ROLE_USER'});
+        if (document.getElementById('newRoleAdmin').selected) newUserRoles.push({id: 1, name: 'ROLE_ADMIN'});
         const newUser = {
             name: document.getElementById('newUserName').value,
             surname: document.getElementById('newUserSurname').value,
@@ -215,8 +215,8 @@ if (document.getElementById('v-pills-admin')) {
     document.getElementById('editForm').addEventListener('submit', (event) => {
         event.preventDefault();
         const userRolesEdited = [];
-        if (document.getElementById('optionUser').selected) userRolesEdited.push({id: 2, authority: 'ROLE_USER'});
-        if (document.getElementById('optionAdmin').selected) userRolesEdited.push({id: 1, authority: 'ROLE_ADMIN'});
+        if (document.getElementById('optionUser').selected) userRolesEdited.push({id: 2, name: 'ROLE_USER'});
+        if (document.getElementById('optionAdmin').selected) userRolesEdited.push({id: 1, name: 'ROLE_ADMIN'});
         const userEdited = {
             id: document.getElementById('idEdit').value,
             name: document.getElementById('nameEdit').value,

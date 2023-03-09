@@ -16,6 +16,8 @@ import ru.kata.spring.boot_security.demo.repo.RoleRepository;
 import ru.kata.spring.boot_security.demo.repo.UserRepository;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,9 +54,13 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public void saveUser(User user) {
         user.setA(user.getPassword());
-
-            user.setPassword(passwordEncoder.encode(user.getA()));
-            userRepository.save(user);
+        List<Role> roles = new ArrayList<>();
+        for (Role role: user.getRoles()) {
+            roles.add(getRole(role.getId()));
+        }
+        user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(user.getA()));
+        userRepository.save(user);
         
     }
 
@@ -75,18 +81,15 @@ public class UserServiceImpl implements UserService{
     @Transactional
     public void updateUser(User user) {
         user.setA(user.getPassword());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        if (user.getPassword().equals("")) {
+            user.setPassword(getUser(user.getId()).getPassword());
+        }
+        else
+        {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         userRepository.save(user);
     }
-
-    @Override
-    @Transactional
-    public void updateUserWithoutEncode(User user) {
-        user.setA(user.getPassword());
-        user.setPassword(user.getPassword());
-        userRepository.save(user);
-    }
-
 
     @Override
     public User getUserByName(String username) {
@@ -109,4 +112,6 @@ public class UserServiceImpl implements UserService{
     public Role getRole(int id) {
         return roleRepository.getById(id);
     }
+
+
 }

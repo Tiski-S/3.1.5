@@ -29,8 +29,7 @@ public class AdminRestController {
 
     @PostMapping()
     public ResponseEntity<User> createUser(@RequestBody User user) {
-        Role role = userService.getRole(user.getRoles().stream().findFirst().get().getId());
-        user.setRoles(Arrays.asList(role));
+
         userService.saveUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
@@ -38,16 +37,7 @@ public class AdminRestController {
 
     @PutMapping()
     public ResponseEntity<User> updateUser(@RequestBody User user) {
-        Role role = userService.getRole(user.getRoles().stream().findFirst().get().getId());
-        user.setRoles(Arrays.asList(role));
-        if (user.getPassword().equals("")) {
-            user.setPassword(userService.getUser(user.getId()).getPassword());
-            userService.updateUserWithoutEncode(user);
-        }
-        else
-        {
-            userService.updateUser(user);
-        }
+        userService.updateUser(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

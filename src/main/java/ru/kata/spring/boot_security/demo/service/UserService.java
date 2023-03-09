@@ -17,8 +17,8 @@ public interface UserService extends UserDetailsService {
     void saveUser(User user);
     void deleteUser(int id);
     void updateUser(User user);
-    void updateUserWithoutEncode(User user);
     User getUserByName(String username);
 
     Role getRole(int id);
+
 }
